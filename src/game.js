@@ -22,8 +22,9 @@ export default class Game{
     this.asteroids = Asteroid.createAsteroids(5 + 5 * this.level);
     //console.log(this.asteroids)
 
-    this.boom = new Audio('boom.mp3');
+    this.ship_explosion = new Audio('boom.mp3');
     this.laser = new Audio('laser.mp3');
+    this.boom = new Audio('ship_explosion.mp3');
 
     this.currentInput = {
       space: false,
@@ -117,6 +118,7 @@ export default class Game{
       asteroid.update(elapsedTime);
       if(Collision.checkShipCollision(asteroid, this.ship)){
         this.life--;
+        this.ship_explosion.play();
         this.asteroids.splice(index, 1);
         if(this.life === 0) this.end = true;
         if(this.asteroids.length === 0){
